@@ -1,0 +1,15 @@
+C:\Users\mondaini\Documents\VS Code\csharp\PedidoInternacional\PedidoInternacional\bin\Debug\net7.0\PedidoInternacional.exe
+C:\Users\mondaini\Documents\VS Code\csharp\PedidoInternacional\PedidoInternacional\bin\Debug\net7.0\PedidoInternacional.deps.json
+C:\Users\mondaini\Documents\VS Code\csharp\PedidoInternacional\PedidoInternacional\bin\Debug\net7.0\PedidoInternacional.runtimeconfig.json
+C:\Users\mondaini\Documents\VS Code\csharp\PedidoInternacional\PedidoInternacional\bin\Debug\net7.0\PedidoInternacional.dll
+C:\Users\mondaini\Documents\VS Code\csharp\PedidoInternacional\PedidoInternacional\bin\Debug\net7.0\PedidoInternacional.pdb
+C:\Users\mondaini\Documents\VS Code\csharp\PedidoInternacional\PedidoInternacional\obj\Debug\net7.0\PedidoInternacional.csproj.AssemblyReference.cache
+C:\Users\mondaini\Documents\VS Code\csharp\PedidoInternacional\PedidoInternacional\obj\Debug\net7.0\PedidoInternacional.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\mondaini\Documents\VS Code\csharp\PedidoInternacional\PedidoInternacional\obj\Debug\net7.0\PedidoInternacional.AssemblyInfoInputs.cache
+C:\Users\mondaini\Documents\VS Code\csharp\PedidoInternacional\PedidoInternacional\obj\Debug\net7.0\PedidoInternacional.AssemblyInfo.cs
+C:\Users\mondaini\Documents\VS Code\csharp\PedidoInternacional\PedidoInternacional\obj\Debug\net7.0\PedidoInternacional.csproj.CoreCompileInputs.cache
+C:\Users\mondaini\Documents\VS Code\csharp\PedidoInternacional\PedidoInternacional\obj\Debug\net7.0\PedidoInternacional.dll
+C:\Users\mondaini\Documents\VS Code\csharp\PedidoInternacional\PedidoInternacional\obj\Debug\net7.0\refint\PedidoInternacional.dll
+C:\Users\mondaini\Documents\VS Code\csharp\PedidoInternacional\PedidoInternacional\obj\Debug\net7.0\PedidoInternacional.pdb
+C:\Users\mondaini\Documents\VS Code\csharp\PedidoInternacional\PedidoInternacional\obj\Debug\net7.0\PedidoInternacional.genruntimeconfig.cache
+C:\Users\mondaini\Documents\VS Code\csharp\PedidoInternacional\PedidoInternacional\obj\Debug\net7.0\ref\PedidoInternacional.dll
