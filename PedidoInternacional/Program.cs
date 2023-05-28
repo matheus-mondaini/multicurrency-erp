@@ -47,6 +47,11 @@ namespace PedidoInternacional
                             Moeda.Registrar(moedas);
                             break;
                         }
+                    case 6:
+                        {
+                            Moeda.AlterarValor(moedas);
+                            break;
+                        }
                     case 7:
                         {
                             Pedido.CriarPedido(clientes, vendedores, moedas, produtos);
@@ -205,7 +210,7 @@ namespace PedidoInternacional
                 Console.Write("Digite o nome: ");
                 string? nomeMoeda = Console.ReadLine();
                 Console.Write("Digite o valor: ");
-                int valorMoeda = Convert.ToInt32(Console.ReadLine());
+                decimal valorMoeda = Convert.ToDecimal(Console.ReadLine());
 
                 Moeda moeda = new Moeda()
                 {
@@ -215,6 +220,26 @@ namespace PedidoInternacional
                 };
                 moedas.Add(moeda);
                 Console.WriteLine("Moeda cadastrada com sucesso");
+            }
+            public static void AlterarValor(List<Moeda> moedas)
+            {
+                Console.Write("Digite o código: ");
+                string? codMoeda = Console.ReadLine();
+
+                Moeda? moeda = moedas.Find(m => m.Codigo == codMoeda);
+
+                if (moeda != null)
+                {
+                    Console.Write("Digite o valor de câmbio atual: ");
+                    decimal novoValor = Convert.ToDecimal(Console.ReadLine());
+
+                    moeda.Valor = novoValor;
+                    Console.WriteLine("Valor alterado com sucesso");
+                }
+                else
+                {
+                    Console.WriteLine("Moeda não encontrada");
+                }
             }
         }
         public class Pedido
