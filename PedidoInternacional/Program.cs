@@ -11,6 +11,7 @@ namespace PedidoInternacional
         static List<Vendedor> vendedores = new List<Vendedor>();
         static List<Moeda> moedas = new List<Moeda>();
         static List<Pais> paises = new List<Pais>();
+        static List<Pedido> pedidos = new List<Pedido>();
         static void Main(string[] args)
         {
             MenuPrincipal.MostrarOpcoes();
@@ -44,6 +45,11 @@ namespace PedidoInternacional
                     case 5:
                         {
                             Moeda.Registrar(moedas);
+                            break;
+                        }
+                    case 7:
+                        {
+                            Pedido.CriarPedido(clientes, vendedores, moedas, produtos);
                             break;
                         }
                     case 8:
@@ -213,7 +219,83 @@ namespace PedidoInternacional
         }
         public class Pedido
         {
+            public Cliente? Cliente { get; set; }
+            public Vendedor? Vendedor { get; set; }
+            public Moeda? Moeda { get; set; }
+            public List<Produto>? Produtos { get; set; }
+            public decimal PrecoTotal { get; set; }
 
+            public static void CriarPedido (List<Cliente> clientes, List<Vendedor> vendedores, List<Moeda> moedas, List<Produto> produtos)
+            {
+                Console.WriteLine("Faça um pedido: ");
+
+                Console.Write("Código do vendedor: ");
+                int codVendedor = Convert.ToInt32(Console.ReadLine());
+                Console.Write("Código do cliente: ");
+                int codCliente = Convert.ToInt32(Console.ReadLine());
+                Console.Write("Código da moeda: ");
+                string? codMoeda = Console.ReadLine();
+
+                Vendedor? vendedor = vendedores.Find(v => v.Codigo.Equals(codVendedor));
+                Cliente? cliente = clientes.Find(c => c.Codigo.Equals(codCliente));
+                Moeda? moeda = moedas.Find(m => m.Codigo == codMoeda);
+
+                if (vendedor == null)
+                    Console.WriteLine("Vendedor não encontrado");
+
+                if (cliente == null)
+                    Console.WriteLine("Cliente não encontrado");
+
+                if (moeda == null)
+                    Console.WriteLine("Moeda não encontrada");
+
+                else
+                {
+                    List<Produto> produtosPedido = new List<Produto>();
+
+                    bool desejaAdicionar = true;
+
+                    while (desejaAdicionar)
+                    {
+                        Console.WriteLine("Adicione um produto");
+                        Console.Write("Digite o código: ");
+                        int codProduto = Convert.ToInt32(Console.ReadLine());
+
+                        Produto? produto = produtos.Find(p => p.Codigo.Equals(codProduto));
+
+                        if (produto != null)
+                        {
+                            produtosPedido.Add(produto);
+                            Console.WriteLine("Produto adicionado com sucesso");
+                            Console.Write("Deseja adicionar mais um produto? (S/N): ");
+                            string? sN = Console.ReadLine();
+                            if (sN?.ToUpper() == "N")
+                                desejaAdicionar = false;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Produto não encontrado.");
+                            Console.Write("Deseja tentar redigitar o código? (S/N): ");
+                            string? sN = Console.ReadLine();
+                            if (sN?.ToUpper() == "N")
+                                desejaAdicionar = false;
+                        }
+
+                    }
+                    if (produtosPedido.Count>0)
+                    {
+                        Pedido pedido = new Pedido
+                        {
+                            Cliente = cliente,
+                            Vendedor = vendedor,
+                            Moeda = moeda,
+                            Produtos = produtosPedido
+                        };
+                        pedidos.Add(pedido);
+                        Console.WriteLine("Pedido cadastrado com sucesso");
+                    }
+                }
+            }
         }
         public class Orcamento
         {
