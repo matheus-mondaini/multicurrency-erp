@@ -10,6 +10,7 @@ namespace PedidoInternacional
         static List<Cliente> clientes = new List<Cliente>();
         static List<Vendedor> vendedores = new List<Vendedor>();
         static List<Moeda> moedas = new List<Moeda>();
+        static List<Pais> paises = new List<Pais>();
         static void Main(string[] args)
         {
             MenuPrincipal.MostrarOpcoes();
@@ -33,6 +34,11 @@ namespace PedidoInternacional
                     case 3:
                         {
                             Vendedor.Registrar(vendedores);
+                            break;
+                        }
+                    case 4:
+                        {
+                            Pais.Registrar(paises);
                             break;
                         }
                     case 5:
@@ -140,13 +146,29 @@ namespace PedidoInternacional
                 Console.WriteLine("Vendedor cadastrado com sucesso");
             }
         }
-        public class Pais
+        public class Pais : Vendedor
+        {
+            //public Moeda moeda { get; set; }
+            public static void Registrar(List<Pais> paises)
+            {
+                int codPais = paises.Count + 1;
+                Console.WriteLine($"Cadastre o país {codPais}");
+                Console.Write("Digite o nome: ");
+                string? nomePais = Console.ReadLine();
+
+                Pais pais = new Pais()
+                {
+                    Codigo = codPais,
+                    Nome = nomePais
+                };
+                paises.Add(pais);
+                Console.WriteLine("País cadastrado com sucesso");
+            }
+        }
+        public class Moeda
         {
             public string? Codigo { get; set; }
             public string? Nome { get; set; }
-        }
-        public class Moeda : Pais
-        {
             public int Valor { get; set; }
             public static void Registrar(List<Moeda> moedas)
             {
