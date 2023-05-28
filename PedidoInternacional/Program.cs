@@ -196,7 +196,7 @@ namespace PedidoInternacional
         {
             public string? Codigo { get; set; }
             public string? Nome { get; set; }
-            public int Valor { get; set; }
+            public decimal Valor { get; set; }
             public static void Registrar(List<Moeda> moedas)
             {
                 Console.WriteLine($"Cadastre uma nova moeda");
@@ -291,15 +291,25 @@ namespace PedidoInternacional
                             Moeda = moeda,
                             Produtos = produtosPedido
                         };
+                        
                         pedidos.Add(pedido);
                         Console.WriteLine("Pedido cadastrado com sucesso");
+
+                        pedido.AtualizarPreco();
                     }
                 }
             }
-        }
-        public class Orcamento
-        {
+            public void AtualizarPreco()
+            {
+                decimal precoTotal = 0;
+                foreach (Produto produto in produtos)
+                {
+                    precoTotal += produto.Preco;
+                }
+                PrecoTotal = precoTotal * Moeda.Valor;
 
+                Console.WriteLine($"Preço total atualizado: {PrecoTotal}");
+            }
         }
     }
 }
