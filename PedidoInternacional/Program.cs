@@ -38,7 +38,7 @@ namespace PedidoInternacional
                         }
                     case 4:
                         {
-                            Pais.Registrar(paises);
+                            Pais.Registrar(paises, moedas);
                             break;
                         }
                     case 5:
@@ -105,24 +105,33 @@ namespace PedidoInternacional
         }
         public class Cliente : Vendedor
         {
-            //public Pais Pais { get; set; }
+            public Pais? Pais { get; set; }
             public static void Registrar(List<Cliente> clientes)
             {
                 int codCliente = clientes.Count + 1;
                 Console.WriteLine($"Cadastre o Cliente {codCliente}");
                 Console.Write("Digite o nome: ");
                 string? nomeCliente = Console.ReadLine();
-                //Console.WriteLine("Digite o código do país: ");
-                //int codPais = Convert.ToInt32(Console.ReadLine());
+                Console.Write("Digite o código do país: ");
+                int codPais = Convert.ToInt32(Console.ReadLine());
 
-                Cliente cliente = new Cliente()
+                Pais? pais = paises.Find(p => p.Codigo == codPais);
+
+                if (pais != null)
                 {
-                    Codigo = codCliente,
-                    Nome = nomeCliente,
-                    //Pais = pais
-                };
-                clientes.Add(cliente);
-                Console.WriteLine("Cliente cadastrado com sucesso");
+                    Cliente cliente = new Cliente()
+                    {
+                        Codigo = codCliente,
+                        Nome = nomeCliente,
+                        Pais = pais
+                    };
+                    clientes.Add(cliente);
+                    Console.WriteLine("Cliente cadastrado com sucesso");
+                }
+                else
+                {
+                    Console.WriteLine("País não encontrado");
+                }
             }
 
         }
@@ -148,21 +157,33 @@ namespace PedidoInternacional
         }
         public class Pais : Vendedor
         {
-            //public Moeda moeda { get; set; }
-            public static void Registrar(List<Pais> paises)
+            public Moeda? Moeda { get; set; }
+            public static void Registrar(List<Pais> paises, List<Moeda> moedas)
             {
                 int codPais = paises.Count + 1;
                 Console.WriteLine($"Cadastre o país {codPais}");
                 Console.Write("Digite o nome: ");
                 string? nomePais = Console.ReadLine();
+                Console.Write("Digite o código da moeda do país: ");
+                string? moedaPais = Console.ReadLine();
 
-                Pais pais = new Pais()
+                Moeda? moeda = moedas.Find(m => m.Codigo == moedaPais);
+
+                if (moeda != null)
                 {
-                    Codigo = codPais,
-                    Nome = nomePais
-                };
-                paises.Add(pais);
-                Console.WriteLine("País cadastrado com sucesso");
+                    Pais pais = new Pais()
+                    {
+                        Codigo = codPais,
+                        Nome = nomePais,
+                        Moeda = moeda
+                    };
+                    paises.Add(pais);
+                    Console.WriteLine("País cadastrado com sucesso");
+                }
+                else
+                {
+                    Console.WriteLine("Moeda não encontrada");
+                }
             }
         }
         public class Moeda
@@ -192,11 +213,11 @@ namespace PedidoInternacional
         }
         public class Pedido
         {
-                
+
         }
         public class Orcamento
         {
-                
+
         }
     }
 }
