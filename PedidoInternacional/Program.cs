@@ -7,6 +7,7 @@ namespace PedidoInternacional
     class Program
     {
         static List<Cliente> clientes = new List<Cliente>();
+        static List<Vendedor> vendedores = new List<Vendedor>();
         static void Main(string[] args)
         {
             MenuPrincipal.MostrarOpcoes();
@@ -14,11 +15,17 @@ namespace PedidoInternacional
             do
             {
                 opcao = MenuPrincipal.Escolha();
+                Console.WriteLine();
                 switch (opcao)
                 {
                     case 2:
                         {
                             Cliente.Registrar(clientes);
+                            break;
+                        }
+                    case 3:
+                        {
+                            Vendedor.Registrar(vendedores);
                             break;
                         }
                     case 8:
@@ -29,10 +36,10 @@ namespace PedidoInternacional
                     default:
                         {
                             Console.WriteLine("Opção inválida! Tente novamente. ");
-                            Console.WriteLine();
                             break;
                         }
                 }
+                Console.WriteLine();
             } while (opcao != 8);
         }
         public class MenuPrincipal
@@ -63,15 +70,14 @@ namespace PedidoInternacional
         public class Cliente
         {
             public int Codigo { get; set; }
-            public string Nome { get; set; }
-            public Pais Pais { get; set; }
+            public string? Nome { get; set; }
+            //public Pais Pais { get; set; }
             public static void Registrar(List<Cliente> clientes)
             {
-                int codCliente = clientes.Count;
-                Console.WriteLine();
-                Console.WriteLine($"Cadastre o Cliente {codCliente + 1}");
-                Console.WriteLine("Digite o nome do cliente: ");
-                string nomeCliente = Console.ReadLine();
+                int codCliente = clientes.Count + 1;
+                Console.WriteLine($"Cadastre o Cliente {codCliente}");
+                Console.Write("Digite o nome: ");
+                string? nomeCliente = Console.ReadLine();
                 //Console.WriteLine("Digite o código do país: ");
                 //int codPais = Convert.ToInt32(Console.ReadLine());
 
@@ -83,13 +89,26 @@ namespace PedidoInternacional
                 };
                 clientes.Add(cliente);
                 Console.WriteLine("Cliente cadastrado com sucesso");
-                Console.WriteLine();
             }
 
         }
-        public class Vendedor
+        public class Vendedor : Cliente
         {
+            public static void Registrar(List<Vendedor> vendedores)
+            {
+                int codVendedor = vendedores.Count + 1;
+                Console.WriteLine($"Cadastre o Vendedor {codVendedor}");
+                Console.Write("Digite o nome: ");
+                string? nomeVendedor = Console.ReadLine();
 
+                Vendedor vendedor = new Vendedor()
+                {
+                    Codigo = codVendedor,
+                    Nome = nomeVendedor
+                };
+                vendedores.Add(vendedor);
+                Console.WriteLine("Vendedor cadastrado com sucesso");
+            }
         }
         public class Pais
         {
