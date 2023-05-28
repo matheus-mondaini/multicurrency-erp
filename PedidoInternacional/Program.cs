@@ -6,6 +6,7 @@ namespace PedidoInternacional
 {
     class Program
     {
+        static List<Produto> produtos = new List<Produto>();
         static List<Cliente> clientes = new List<Cliente>();
         static List<Vendedor> vendedores = new List<Vendedor>();
         static void Main(string[] args)
@@ -18,6 +19,11 @@ namespace PedidoInternacional
                 Console.WriteLine();
                 switch (opcao)
                 {
+                    case 1:
+                        {
+                            Produto.Registrar(produtos);
+                            break;
+                        }
                     case 2:
                         {
                             Cliente.Registrar(clientes);
@@ -58,19 +64,35 @@ namespace PedidoInternacional
             }
             public static int Escolha()
             {
-                Console.WriteLine("Escolha uma opção: ");
+                Console.Write("Escolha uma opção: ");
                 int escolha = Convert.ToInt32(Console.ReadLine());
                 return escolha;
             }
         }
-        public class Produto
+        public class Produto : Vendedor
         {
+            public decimal Preco { get; set; }
+            public static void Registrar(List<Produto> produtos)
+            {
+                int codProduto = produtos.Count + 1;
+                Console.WriteLine($"Cadastre o Produto {codProduto}");
+                Console.Write("Digite o nome: ");
+                string? nomeProduto = Console.ReadLine();
+                Console.Write($"Digite o preço: ");
+                decimal precoProduto = Convert.ToInt32(Console.ReadLine());
 
+                Produto produto = new Produto()
+                {
+                    Codigo = codProduto,
+                    Nome = nomeProduto,
+                    Preco = precoProduto
+                };
+                produtos.Add(produto);
+                Console.WriteLine("Produto cadastrado com sucesso");
+            }
         }
-        public class Cliente
+        public class Cliente : Vendedor
         {
-            public int Codigo { get; set; }
-            public string? Nome { get; set; }
             //public Pais Pais { get; set; }
             public static void Registrar(List<Cliente> clientes)
             {
@@ -92,8 +114,10 @@ namespace PedidoInternacional
             }
 
         }
-        public class Vendedor : Cliente
+        public class Vendedor
         {
+            public int Codigo { get; set; }
+            public string? Nome { get; set; }
             public static void Registrar(List<Vendedor> vendedores)
             {
                 int codVendedor = vendedores.Count + 1;
