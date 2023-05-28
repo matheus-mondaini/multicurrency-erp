@@ -9,6 +9,7 @@ namespace PedidoInternacional
         static List<Produto> produtos = new List<Produto>();
         static List<Cliente> clientes = new List<Cliente>();
         static List<Vendedor> vendedores = new List<Vendedor>();
+        static List<Moeda> moedas = new List<Moeda>();
         static void Main(string[] args)
         {
             MenuPrincipal.MostrarOpcoes();
@@ -34,14 +35,19 @@ namespace PedidoInternacional
                             Vendedor.Registrar(vendedores);
                             break;
                         }
+                    case 5:
+                        {
+                            Moeda.Registrar(moedas);
+                            break;
+                        }
                     case 8:
                         {
-                            Console.WriteLine("Fechando o programa...");
+                            Console.Write("Fechando o programa...");
                             break;
                         }
                     default:
                         {
-                            Console.WriteLine("Opção inválida! Tente novamente. ");
+                            Console.Write("Opção inválida! Tente novamente. ");
                             break;
                         }
                 }
@@ -60,7 +66,7 @@ namespace PedidoInternacional
                 Console.WriteLine("5 - Cadastrar uma moeda");
                 Console.WriteLine("6 - Alterar a taxa de câmbio de uma moeda");
                 Console.WriteLine("7 - Faça uma venda");
-                Console.WriteLine("8 - Sair");
+                Console.WriteLine("8 - Sair\n");
             }
             public static int Escolha()
             {
@@ -136,11 +142,31 @@ namespace PedidoInternacional
         }
         public class Pais
         {
-
+            public string? Codigo { get; set; }
+            public string? Nome { get; set; }
         }
-        public class Moeda
+        public class Moeda : Pais
         {
+            public int Valor { get; set; }
+            public static void Registrar(List<Moeda> moedas)
+            {
+                Console.WriteLine($"Cadastre uma nova moeda");
+                Console.Write($"Digite o código ISO 4217 (3 Letras): ");
+                string? codMoeda = Console.ReadLine();
+                Console.Write("Digite o nome: ");
+                string? nomeMoeda = Console.ReadLine();
+                Console.Write("Digite o valor: ");
+                int valorMoeda = Convert.ToInt32(Console.ReadLine());
 
+                Moeda moeda = new Moeda()
+                {
+                    Codigo = codMoeda,
+                    Nome = nomeMoeda,
+                    Valor = valorMoeda
+                };
+                moedas.Add(moeda);
+                Console.WriteLine("Moeda cadastrada com sucesso");
+            }
         }
         public class Pedido
         {
