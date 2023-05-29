@@ -272,6 +272,14 @@ namespace PedidoInternacional
                     Console.Write("Digite o código numérico do vendedor: ");
                 }
 
+                Vendedor? vendedor = vendedores.Find(v => v.Codigo.Equals(codVendedor));
+                
+                if (vendedor == null)
+                {
+                    Console.WriteLine("Vendedor não encontrado");
+                    return;
+                }
+
                 Console.Write("Código do cliente: ");
                 int codCliente;
                 while(!int.TryParse(Console.ReadLine(), out codCliente))
@@ -279,74 +287,92 @@ namespace PedidoInternacional
                     Console.Write("Digite o código numérico do cliente: ");
                 }
 
-                Console.Write("Código da moeda: ");
-                string? codMoeda = Console.ReadLine();
-
-                Vendedor? vendedor = vendedores.Find(v => v.Codigo.Equals(codVendedor));
                 Cliente? cliente = clientes.Find(c => c.Codigo.Equals(codCliente));
-                Moeda? moeda = moedas.Find(m => m.Codigo == codMoeda);
-
-                if (vendedor == null)
-                    Console.WriteLine("Vendedor não encontrado");
 
                 if (cliente == null)
+                {
                     Console.WriteLine("Cliente não encontrado");
+                    return;
+                }
 
-                if (moeda == null)
-                    Console.WriteLine("Moeda não encontrada");
+                Moeda? moeda;
+                Console.Write("Deseja usar a moeda do país do cliente? (S/N): ");
+                string? usarMoedaCliente = Console.ReadLine();
 
+                while(usarMoedaCliente != "S" && usarMoedaCliente != "N")
+                {
+                    Console.Write("Escolhan sim ou não (S/N): ");
+                    usarMoedaCliente = Console.ReadLine();
+                }
+
+                if (usarMoedaCliente?.ToUpper() == "S")
+                {
+                    moeda = cliente?.Pais?.Moeda;
+                    Console.WriteLine($"Será utilizada a moeda {moeda?.Codigo}");
+                }
                 else
                 {
-                    List<Produto> produtosPedido = new List<Produto>();
+                    Console.Write("Código da moeda: ");
+                    string? codMoeda = Console.ReadLine();
 
-                    bool desejaAdicionar = true;
+                    moeda = moedas.Find(m => m.Codigo == codMoeda);
 
-                    while (desejaAdicionar)
+                    if (moeda == null)
                     {
-                        Console.WriteLine("Adicione um produto");
-                        Console.Write("Digite o código: ");
-                        int codProduto;
-                        while(!int.TryParse(Console.ReadLine(), out codProduto))
-                        {
-                            Console.Write("Digite o código numérico do Produto: ");
-                        }
-
-                        Produto? produto = produtos.Find(p => p.Codigo.Equals(codProduto));
-
-                        if (produto != null)
-                        {
-                            produtosPedido.Add(produto);
-                            Console.WriteLine("Produto adicionado com sucesso");
-                            Console.Write("Deseja adicionar mais um produto? (S/N): ");
-                            string? sN = Console.ReadLine();
-                            if (sN?.ToUpper() == "N")
-                                desejaAdicionar = false;
-                        }
-                        else
-                        {
-                            Console.WriteLine("Produto não encontrado.");
-                            Console.Write("Deseja tentar redigitar o código? (S/N): ");
-                            string? sN = Console.ReadLine();
-                            if (sN?.ToUpper() == "N")
-                                desejaAdicionar = false;
-                        }
-
+                        Console.WriteLine("Moeda não encontrada");
+                        return;
                     }
-                    if (produtosPedido.Count>0)
+                }
+
+                List<Produto> produtosPedido = new List<Produto>();
+
+                bool desejaAdicionar = true;
+
+                while (desejaAdicionar)
+                {
+                    Console.WriteLine("Adicione um produto");
+                    Console.Write("Digite o código: ");
+                    int codProduto;
+                    while (!int.TryParse(Console.ReadLine(), out codProduto))
                     {
-                        Pedido pedido = new Pedido
-                        {
-                            Cliente = cliente,
-                            Vendedor = vendedor,
-                            Moeda = moeda,
-                            Produtos = produtosPedido
-                        };
-                        
-                        pedidos.Add(pedido);
-                        Console.WriteLine("Pedido cadastrado com sucesso");
-
-                        pedido.AtualizarPreco();
+                        Console.Write("Digite o código numérico do Produto: ");
                     }
+
+                    Produto? produto = produtos.Find(p => p.Codigo.Equals(codProduto));
+
+                    if (produto != null)
+                    {
+                        produtosPedido.Add(produto);
+                        Console.WriteLine("Produto adicionado com sucesso");
+                        Console.Write("Deseja adicionar mais um produto? (S/N): ");
+                        string? sN = Console.ReadLine();
+                        if (sN?.ToUpper() == "N")
+                            desejaAdicionar = false;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Produto não encontrado.");
+                        Console.Write("Deseja tentar redigitar o código? (S/N): ");
+                        string? sN = Console.ReadLine();
+                        if (sN?.ToUpper() == "N")
+                            desejaAdicionar = false;
+                    }
+
+                }
+                if (produtosPedido.Count > 0)
+                {
+                    Pedido pedido = new Pedido
+                    {
+                        Cliente = cliente,
+                        Vendedor = vendedor,
+                        Moeda = moeda,
+                        Produtos = produtosPedido
+                    };
+
+                    pedidos.Add(pedido);
+                    Console.WriteLine("Pedido cadastrado com sucesso");
+
+                    pedido.AtualizarPreco();
                 }
             }
 
