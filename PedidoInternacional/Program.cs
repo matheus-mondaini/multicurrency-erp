@@ -12,6 +12,7 @@ namespace PedidoInternacional
         static List<Moeda> moedas = new List<Moeda>();
         static List<Pais> paises = new List<Pais>();
         static List<Pedido> pedidos = new List<Pedido>();
+
         static void Main(string[] args)
         {
             MenuPrincipal.MostrarOpcoes();
@@ -23,54 +24,37 @@ namespace PedidoInternacional
                 switch (opcao)
                 {
                     case 1:
-                        {
                             Produto.Registrar(produtos);
                             break;
-                        }
                     case 2:
-                        {
                             Cliente.Registrar(clientes);
                             break;
-                        }
                     case 3:
-                        {
                             Vendedor.Registrar(vendedores);
                             break;
-                        }
                     case 4:
-                        {
                             Pais.Registrar(paises, moedas);
                             break;
-                        }
                     case 5:
-                        {
                             Moeda.Registrar(moedas);
                             break;
-                        }
                     case 6:
-                        {
                             Moeda.AlterarValor(moedas);
                             break;
-                        }
                     case 7:
-                        {
                             Pedido.CriarPedido(clientes, vendedores, moedas, produtos);
                             break;
-                        }
                     case 8:
-                        {
                             Console.Write("Fechando o programa...");
                             break;
-                        }
                     default:
-                        {
-                            Console.Write("Opção inválida! Tente novamente. ");
+                            Console.Write("Opção inválida! Tente novamente.");
                             break;
-                        }
                 }
                 Console.WriteLine();
             } while (opcao != 8);
         }
+
         public class MenuPrincipal
         {
             public static void MostrarOpcoes()
@@ -88,10 +72,16 @@ namespace PedidoInternacional
             public static int Escolha()
             {
                 Console.Write("Escolha uma opção: ");
-                int escolha = Convert.ToInt32(Console.ReadLine());
+                int escolha;
+                while (!int.TryParse(Console.ReadLine(), out escolha))
+                {
+                    Console.WriteLine("\nOpção inválida! Tente novamente.");
+                    Console.Write("Escolha uma opção: ");
+                }
                 return escolha;
             }
         }
+
         public class Produto : Vendedor
         {
             public decimal Preco { get; set; }
@@ -101,8 +91,12 @@ namespace PedidoInternacional
                 Console.WriteLine($"Cadastre o Produto {codProduto}");
                 Console.Write("Digite o nome: ");
                 string? nomeProduto = Console.ReadLine();
-                Console.Write($"Digite o preço: ");
-                decimal precoProduto = Convert.ToInt32(Console.ReadLine());
+                Console.Write("Digite o preço: ");
+                decimal precoProduto;
+                while (!decimal.TryParse(Console.ReadLine(), out precoProduto))
+                {
+                    Console.Write("Digite um preço válido: ");
+                }
 
                 Produto produto = new Produto()
                 {
@@ -114,6 +108,7 @@ namespace PedidoInternacional
                 Console.WriteLine("Produto cadastrado com sucesso");
             }
         }
+
         public class Cliente : Vendedor
         {
             public Pais? Pais { get; set; }
@@ -124,7 +119,11 @@ namespace PedidoInternacional
                 Console.Write("Digite o nome: ");
                 string? nomeCliente = Console.ReadLine();
                 Console.Write("Digite o código do país: ");
-                int codPais = Convert.ToInt32(Console.ReadLine());
+                int codPais;
+                while (!int.TryParse(Console.ReadLine(), out codPais))
+                {
+                    Console.Write("Digite um código númerico: ");
+                }
 
                 Pais? pais = paises.Find(p => p.Codigo == codPais);
 
@@ -146,6 +145,7 @@ namespace PedidoInternacional
             }
 
         }
+
         public class Vendedor
         {
             public int Codigo { get; set; }
@@ -166,6 +166,7 @@ namespace PedidoInternacional
                 Console.WriteLine("Vendedor cadastrado com sucesso");
             }
         }
+
         public class Pais : Vendedor
         {
             public Moeda? Moeda { get; set; }
@@ -197,6 +198,7 @@ namespace PedidoInternacional
                 }
             }
         }
+
         public class Moeda
         {
             public string? Codigo { get; set; }
@@ -210,7 +212,11 @@ namespace PedidoInternacional
                 Console.Write("Digite o nome: ");
                 string? nomeMoeda = Console.ReadLine();
                 Console.Write("Digite o valor: ");
-                decimal valorMoeda = Convert.ToDecimal(Console.ReadLine());
+                decimal valorMoeda;
+                while(!Decimal.TryParse(Console.ReadLine(), out valorMoeda))
+                {
+                    Console.Write("Digite um valor numérico: ");
+                }
 
                 Moeda moeda = new Moeda()
                 {
@@ -231,7 +237,11 @@ namespace PedidoInternacional
                 if (moeda != null)
                 {
                     Console.Write("Digite o valor de câmbio atual: ");
-                    decimal novoValor = Convert.ToDecimal(Console.ReadLine());
+                    decimal novoValor; 
+                    while (!Decimal.TryParse(Console.ReadLine(), out novoValor))
+                    {
+                        Console.Write("Digite um valor númerico: ");
+                    }
 
                     moeda.Valor = novoValor;
                     Console.WriteLine("Valor alterado com sucesso");
@@ -242,6 +252,7 @@ namespace PedidoInternacional
                 }
             }
         }
+
         public class Pedido
         {
             public Cliente? Cliente { get; set; }
@@ -255,9 +266,19 @@ namespace PedidoInternacional
                 Console.WriteLine("Faça um pedido: ");
 
                 Console.Write("Código do vendedor: ");
-                int codVendedor = Convert.ToInt32(Console.ReadLine());
+                int codVendedor;
+                while(!int.TryParse(Console.ReadLine(), out codVendedor))
+                {
+                    Console.Write("Digite o código numérico do vendedor: ");
+                }
+
                 Console.Write("Código do cliente: ");
-                int codCliente = Convert.ToInt32(Console.ReadLine());
+                int codCliente;
+                while(!int.TryParse(Console.ReadLine(), out codCliente))
+                {
+                    Console.Write("Digite o código numérico do cliente: ");
+                }
+
                 Console.Write("Código da moeda: ");
                 string? codMoeda = Console.ReadLine();
 
@@ -284,7 +305,11 @@ namespace PedidoInternacional
                     {
                         Console.WriteLine("Adicione um produto");
                         Console.Write("Digite o código: ");
-                        int codProduto = Convert.ToInt32(Console.ReadLine());
+                        int codProduto;
+                        while(!int.TryParse(Console.ReadLine(), out codProduto))
+                        {
+                            Console.Write("Digite o código numérico do Produto: ");
+                        }
 
                         Produto? produto = produtos.Find(p => p.Codigo.Equals(codProduto));
 
@@ -324,6 +349,7 @@ namespace PedidoInternacional
                     }
                 }
             }
+
             public void AtualizarPreco()
             {
                 decimal precoTotal = 0;
