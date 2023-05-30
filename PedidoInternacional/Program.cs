@@ -40,12 +40,15 @@ namespace PedidoInternacional
                         Moeda.Registrar();
                         break;
                     case 6:
-                        Moeda.AlterarValor();
+                        Cliente.AlterarDados();
                         break;
                     case 7:
-                        Pedido.CriarPedido();
+                        Moeda.AlterarValor();
                         break;
                     case 8:
+                        Pedido.CriarPedido();
+                        break;
+                    case 9:
                         Console.Write("Fechando o programa...");
                         break;
                     default:
@@ -67,9 +70,10 @@ namespace PedidoInternacional
             Console.WriteLine("3 - Cadastrar um vendedor");
             Console.WriteLine("4 - Cadastrar um país");
             Console.WriteLine("5 - Cadastrar uma moeda");
-            Console.WriteLine("6 - Alterar a taxa de câmbio de uma moeda");
-            Console.WriteLine("7 - Faça uma venda");
-            Console.WriteLine("8 - Sair\n");
+            Console.WriteLine("6 - Altere os dados de um cliente");
+            Console.WriteLine("7 - Alterar a taxa de câmbio de uma moeda");
+            Console.WriteLine("8 - Faça uma venda");
+            Console.WriteLine("9 - Sair\n");
         }
         public static int Escolha()
         {
@@ -143,6 +147,67 @@ namespace PedidoInternacional
             else
             {
                 Console.WriteLine("País não encontrado");
+            }
+        }
+        public static void AlterarDados()
+        {
+            if (Program.clientes.Count == 0)
+                Console.WriteLine("Não há um cliente cadastrado para alterá-lo");
+            else
+            {
+                Console.Write("Digite o código do cliente que deseja alterar os dados: ");
+                int codCliente;
+                while (!int.TryParse(Console.ReadLine(), out codCliente))
+                {
+                    Console.Write("Digite o código numérico sequencial do cliente: ");
+                }
+
+                Cliente? cliente = Program.clientes.Find(c => c.Codigo == codCliente);
+
+                while (cliente == null)
+                {
+                    Console.Write("Cliente não cadastrado! Deseja tentar novamente? (S/N):  ");
+                    string? tentarNovamente = Console.ReadLine()?.ToUpper();
+
+                    while (tentarNovamente != "S" && tentarNovamente != "N")
+                    {
+                        Console.Write("Escolhan sim ou não (S/N): ");
+                        tentarNovamente = Console.ReadLine();
+                    }
+
+                    if (tentarNovamente == "N")
+                    {
+                        return;
+                    }
+                    else
+                    {
+
+                        Console.Write("Digite um cliente válido: ");
+                        while (!int.TryParse(Console.ReadLine(), out codCliente))
+                        {
+                            Console.Write("Digite o código numérico sequencial do cliente: ");
+                        }
+
+                        cliente = Program.clientes.Find(c => c.Codigo == codCliente);
+                    }
+                }
+                Console.Write("\nDigite o novo nome do cliente: ");
+                Program.clientes[codCliente - 1].Nome = Console.ReadLine();
+                Console.WriteLine("Nome alterado.");
+
+                Console.Write("Digite o novo código do país do cliente: ");
+                int paisCliente;
+                Pais? pais = null;
+                while (pais == null)
+                {
+                    while (!int.TryParse(Console.ReadLine(), out paisCliente))
+                    {
+                        Console.Write("Digite o código numérico sequencial do novo país: ");
+                    }
+                    pais = Program.paises.Find(p => p.Codigo == paisCliente);
+                }
+                Program.clientes[codCliente - 1].Pais = pais;
+                Console.WriteLine("País alterado.");
             }
         }
     }
