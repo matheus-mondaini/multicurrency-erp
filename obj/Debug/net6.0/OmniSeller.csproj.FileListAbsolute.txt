@@ -1,0 +1,15 @@
+C:\Users\mondaini\Documents\Codes\csharp\OmniSeller\obj\Debug\net6.0\OmniSeller.csproj.AssemblyReference.cache
+C:\Users\mondaini\Documents\Codes\csharp\OmniSeller\obj\Debug\net6.0\OmniSeller.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\mondaini\Documents\Codes\csharp\OmniSeller\obj\Debug\net6.0\OmniSeller.AssemblyInfoInputs.cache
+C:\Users\mondaini\Documents\Codes\csharp\OmniSeller\obj\Debug\net6.0\OmniSeller.AssemblyInfo.cs
+C:\Users\mondaini\Documents\Codes\csharp\OmniSeller\obj\Debug\net6.0\OmniSeller.csproj.CoreCompileInputs.cache
+C:\Users\mondaini\Documents\Codes\csharp\OmniSeller\bin\Debug\net6.0\OmniSeller.exe
+C:\Users\mondaini\Documents\Codes\csharp\OmniSeller\bin\Debug\net6.0\OmniSeller.deps.json
+C:\Users\mondaini\Documents\Codes\csharp\OmniSeller\bin\Debug\net6.0\OmniSeller.runtimeconfig.json
+C:\Users\mondaini\Documents\Codes\csharp\OmniSeller\bin\Debug\net6.0\OmniSeller.dll
+C:\Users\mondaini\Documents\Codes\csharp\OmniSeller\bin\Debug\net6.0\OmniSeller.pdb
+C:\Users\mondaini\Documents\Codes\csharp\OmniSeller\obj\Debug\net6.0\OmniSeller.dll
+C:\Users\mondaini\Documents\Codes\csharp\OmniSeller\obj\Debug\net6.0\refint\OmniSeller.dll
+C:\Users\mondaini\Documents\Codes\csharp\OmniSeller\obj\Debug\net6.0\OmniSeller.pdb
+C:\Users\mondaini\Documents\Codes\csharp\OmniSeller\obj\Debug\net6.0\OmniSeller.genruntimeconfig.cache
+C:\Users\mondaini\Documents\Codes\csharp\OmniSeller\obj\Debug\net6.0\ref\OmniSeller.dll
